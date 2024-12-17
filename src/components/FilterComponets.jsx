@@ -86,7 +86,7 @@ export const FilterByStatus = ({ SetFilterStatus, filterStatus }) => {
   );
 };
 
-export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
+export const AllColorFilter = ({ AllColor, color, Setcolor, SetFilterStatus }) => {
   return (
     <div className="flex flex-col justify-around">
       <h1>Filter By Color</h1>
@@ -99,10 +99,17 @@ export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
               e.target.checked
                 ? Setcolor({ colorName: ColorItem, status: true })
                 : Setcolor({ colorName: "", status: false });
+              SetFilterStatus({
+                all: false,
+                Active: false,
+                Completed: false,
+              });
             }}
             checked={ColorItem.status}
           ></input>
-          <div style={{ background: ColorItem,width:"10px" ,height:"10px"}}></div>
+          <div
+            style={{ background: ColorItem, width: "10px", height: "10px" }}
+          ></div>
           <p>{ColorItem}</p>
         </div>
       ))}

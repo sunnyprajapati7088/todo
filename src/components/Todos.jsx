@@ -93,17 +93,21 @@ function Todos({ listColor }) {
           <hr />
         </div>
       ))}
-      <hr  />
+      <hr />
       {/*footer Section*/}
       <div className="flex w-full justify-between  p-2">
         <Actions />
         <RemainingTodo />
-        <FilterByStatus SetFilterStatus={SetFilterStatus} filterStatus={filterStatus} />
+        <FilterByStatus
+          SetFilterStatus={SetFilterStatus}
+          filterStatus={filterStatus}
+        />
         <AllColorFilter
           Setcolor={Setcolor}
           color={color}
           AllColor={AllColor}
           handleColorFilter={handleColorFilter}
+          SetFilterStatus={SetFilterStatus}
         />
       </div>
     </div>
