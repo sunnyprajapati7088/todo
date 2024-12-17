@@ -6,6 +6,7 @@ import {
   TodoClear,
   TodoMarksAllComplete,
   TodoRemaining,
+  TodoUnMarkAll,
 } from "../Redux/TodoSlice";
 
 export const Actions = () => {
@@ -16,11 +17,16 @@ export const Actions = () => {
   function handleClear() {
     dispatch(TodoClear());
   }
+  function handleAllUnmarks() {
+    dispatch(TodoUnMarkAll());
+    
+  }
   return (
     <div className="flex flex-col w-[20%] text-center ">
       <p>Actions</p>
       <button onClick={() => handleAllComplete()}>All Marks Complete</button>
       <button onClick={() => handleClear()}>Clear All Complete</button>
+      <button onClick={() => handleAllUnmarks()}> AllUnMark </button>
     </div>
   );
 };
@@ -96,7 +102,7 @@ export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
             }}
             checked={ColorItem.status}
           ></input>
-          <div className={`w-6 h-4 rounded-md bg-` + ColorItem + `-500 `}></div>
+          <div style={{ background: ColorItem,width:"10px" ,height:"10px"}}></div>
           <p>{ColorItem}</p>
         </div>
       ))}

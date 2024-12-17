@@ -7,14 +7,13 @@ function ListOfColor({ handleColor, id, color, listColor }) {
   return (
     <div>
       <select
-        className={`bg-${color}-500`}
+        style={{ background: color, }}
         onChange={(e) => {
           handleColor(id, e.target.value);
         }}
         value={color}
       >
         {listColor.map((item, i) => (
-         
           <option className={`text-${color}-500`} key={i}>
             {item}
           </option>

@@ -40,7 +40,8 @@ const TodoSlice = createSlice({
     TodoClear: (state, action) => {
     state.todo=  state.todo.filter((item) => (item.status === false));
     },
-    TodoRemaining: (state, action) => {
+    TodoUnMarkAll: (state, action) => {
+        state.todo.forEach((item) => (item.status = false));
      
     },
   },
@@ -53,6 +54,7 @@ export const {
   TodoMarksAllComplete,
   TodoClear,
   TodoRemaining,
+  TodoUnMarkAll,
 } = TodoSlice.actions;
 export default TodoSlice.reducer;
 
