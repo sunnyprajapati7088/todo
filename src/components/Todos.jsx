@@ -101,6 +101,8 @@ function Todos({ listColor }) {
         <FilterByStatus
           SetFilterStatus={SetFilterStatus}
           filterStatus={filterStatus}
+          Setcolor={Setcolor}
+          color={color}
         />
         <AllColorFilter
           Setcolor={Setcolor}

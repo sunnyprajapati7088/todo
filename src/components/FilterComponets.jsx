@@ -42,17 +42,20 @@ export const RemainingTodo = () => {
   );
 };
 
-export const FilterByStatus = ({ SetFilterStatus, filterStatus }) => {
+export const FilterByStatus = ({ SetFilterStatus, filterStatus, Setcolor,color }) => {
   return (
     <div className="flex flex-col w-[20%] text-center">
       <h1>FilterByStatus</h1>
       <h1
         onClick={() =>
-          SetFilterStatus({
-            all: true,
-            Active: false,
-            Completed: false,
-          })
+          SetFilterStatus(
+            {
+              all: true,
+              Active: false,
+              Completed: false,
+            },
+            Setcolor(!color)
+          )
         }
         className={`${filterStatus.all ? "bg-blue-700" : ""} rounded-sm`}
       >
