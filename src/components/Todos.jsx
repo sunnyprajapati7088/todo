@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AllTodoColor,
+  filterTodo,
   TodoAddColor,
   TodoChangeStatus,
   TodoDelete,
@@ -19,16 +20,14 @@ function Todos({ listColor }) {
   const AllTodo = useSelector((state) => state.Todos.todo);
   const AllColor = useSelector(AllTodoColor);
   const [filterStatus, SetFilterStatus] = useState({
-    all: false,
+    all: true,
     Active: false,
     Completed: false,
   });
+ const [color, Setcolor] = useState([]);
 
-  const [color, Setcolor] = useState({
-    colorName: "",
-    status: false,
-  });
-
+ 
+  console.log(useSelector(filterTodo({filterStatus,color})))
   const dispatch = useDispatch();
   function handleDelete(id) {
     dispatch(TodoDelete(id));
@@ -41,30 +40,13 @@ function Todos({ listColor }) {
   function handleColor(id, color) {
     dispatch(TodoAddColor({ id, color }));
   }
-  function handleAllFilter() {
-    return AllTodo;
-  }
-  function handleAllActive() {
-    return AllTodo.filter((element) => element.status === false);
-  }
-  function handleAllComplete() {
-    return AllTodo.filter((element) => element.status === true);
-  }
+
   function handleColorFilter() {
     console.log(AllTodo.filter((element) => element.color === color.colorName));
     return AllTodo.filter((element) => element.color === color.colorName);
   }
 
-  const filterData = filterStatus.Active
-    ? handleAllActive()
-    : filterStatus.Completed
-    ? handleAllComplete()
-    : filterStatus.all
-    ? handleAllFilter()
-    : color.status
-    ? handleColorFilter()
-    : AllTodo;
-
+  const filterData = useSelector(filterTodo({ filterStatus, color }));
   return (
     <div className="flex flex-col h-full gap-2 p-3">
       {filterData.map((item, i) => (

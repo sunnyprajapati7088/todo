@@ -89,7 +89,29 @@ export const FilterByStatus = ({ SetFilterStatus, filterStatus, Setcolor,color }
   );
 };
 
-export const AllColorFilter = ({ AllColor, color, Setcolor, SetFilterStatus }) => {
+export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
+  const addColor = (colorName, status) => {
+     
+    Setcolor((prevColors) => {
+   
+       if (!Array.isArray(prevColors)) {
+         console.error("prevColors is not an array:", prevColors);
+         return []; 
+       }
+      const existingIndex = prevColors.findIndex(
+        (item) => item.colorName === colorName
+      );
+      if (existingIndex >= 0) {
+      
+        const updatedColors = [...prevColors];
+        updatedColors[existingIndex].status = status;
+        return updatedColors;
+      }
+      
+      return [...prevColors, { colorName, status }];
+    });
+  };
+
   return (
     <div className="flex flex-col justify-around">
       <h1>Filter By Color</h1>
@@ -98,18 +120,9 @@ export const AllColorFilter = ({ AllColor, color, Setcolor, SetFilterStatus }) =
           <input
             type="checkbox"
             value={ColorItem}
-            onChange={(e) => {
-              e.target.checked
-                ? Setcolor({ colorName: ColorItem, status: true })
-                : Setcolor({ colorName: "", status: false });
-              SetFilterStatus({
-                all: false,
-                Active: false,
-                Completed: false,
-              });
-            }}
-            checked={ColorItem.status}
-          ></input>
+            onChange={(e) => addColor(ColorItem, e.target.checked)}
+           
+          />
           <div
             style={{ background: ColorItem, width: "10px", height: "10px" }}
           ></div>
