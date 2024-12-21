@@ -24,10 +24,9 @@ function Todos({ listColor }) {
     Active: false,
     Completed: false,
   });
- const [color, Setcolor] = useState([]);
+  const [color, Setcolor] = useState([]);
 
- 
-  console.log(useSelector(filterTodo({filterStatus,color})))
+  console.log(useSelector(filterTodo({ filterStatus, color })));
   const dispatch = useDispatch();
   function handleDelete(id) {
     dispatch(TodoDelete(id));

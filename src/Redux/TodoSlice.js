@@ -79,33 +79,19 @@ export const AllTodoColor = (state) => {
   });
   return allColor;
 };
-// export const filterTodo = (Argu) => (state) => {
-//   console.log(state.Todos.todo)
-//   console.log(Argu)
-//   const { filterStatus, color } = Argu;
-//   const filterItem = state.Todos.todo.filter(item => {
-//     const statusMatch =
-//       filterStatus.all ||
-//       (filterStatus.Active && !item.status) ||
-//       (filterStatus.Completed && item.status);
-//     const colorMatch = color.colorName ? item.color === color.colorName : true;
-//     return statusMatch&& colorMatch
-//   })
-//   return filterItem;
-// };
 
 export const filterTodo = (argu) => (state) => {
   const { filterStatus, color } = argu;
   console.log("Selected Colors:", color);
 
   const filteredItems = state.Todos.todo.filter((item) => {
-    // Check the status
+    
     const statusMatch =
       filterStatus.all ||
-      (filterStatus.Active && !item.status) || // Assuming `Active` is for items with `status: false`
+      (filterStatus.Active && !item.status) || 
       (filterStatus.Completed && item.status);
 
-    // Check if the item's color exists in the selected colors
+   
    const selectedColors = Array.isArray(color)
      ? color.filter((c) => c.status).map((c) => c.colorName)
      : [];
