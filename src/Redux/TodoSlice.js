@@ -59,7 +59,7 @@ export const {
 } = TodoSlice.actions;
 export default TodoSlice.reducer;
 
-export const RemainingTodoItem = (state) => {
+export const selectRemainingTodoItem = (state) => {
   let Remaining = 0;
   state.Todos.todo.forEach(item => {
     if (!item.status) {
@@ -70,7 +70,7 @@ export const RemainingTodoItem = (state) => {
   
 }
 
-export const AllTodoColor = (state) => {
+export const selectAllTodoColor = (state) => {
   let allColor = [];
   state.Todos.todo.forEach((todo) => {
     if (!allColor.includes(todo.color)) {
@@ -80,23 +80,23 @@ export const AllTodoColor = (state) => {
   return allColor;
 };
 
-export const filterTodo = (argu) => (state) => {
-  const { filterStatus, filterColors } = argu;
+export const selectfilterTodo = (argu) => (state) => {
+  const { filterTodoStatus, filterColors } = argu;
   console.log("Selected Colors:", filterColors);
 
   const filteredItems = state.Todos.todo.filter((item) => {
     
     const statusMatch =
-      filterStatus.all ||
-      (filterStatus.Active && !item.status) || 
-      (filterStatus.Completed && item.status);
+      filterTodoStatus.all ||
+      (filterTodoStatus.Active && !item.status) ||
+      (filterTodoStatus.Completed && item.status);
 
    
    const selectedColors = Array.isArray(filterColors)
      ? filterColors.filter((c) => c.status).map((c) => c.colorName)
      : [];
 
-console.log(selectedColors)
+
     const colorMatch = selectedColors.length
       ? selectedColors.includes(item.color)
       : true; // If no colors are selected, include all
@@ -106,3 +106,9 @@ console.log(selectedColors)
 
   return filteredItems;
 };
+
+
+export const selectAllTodo = (state) => {
+  return state.Todos.todo;
+  
+}

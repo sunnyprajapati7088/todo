@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Todos from "./components/Todos";
 import { TextInput } from "./components/Inputs";
 import { useDispatch, useSelector } from "react-redux";
-import { add, RemainingTodoItem } from "./Redux/TodoSlice";
+import { add } from "./Redux/TodoSlice";
 import InputPage from "./Pages/InputPage";
 import FooterSection from "./Pages/FooterSection";
 import { FilterByStatus } from "./components/FilterComponets";

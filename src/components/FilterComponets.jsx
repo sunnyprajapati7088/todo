@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  AllTodoColor,
-  RemainingTodoItem,
+  selectAllTodoColor,
+  selectRemainingTodoItem,
   TodoClear,
-  TodoMarksAllComplete,
-  TodoRemaining,
+  TodoMarksAllComplete, 
   TodoUnMarkAll,
 } from "../Redux/TodoSlice";
 
@@ -32,7 +31,7 @@ export const Actions = () => {
 };
 
 export const RemainingTodo = () => {
-  const Remaining = useSelector(RemainingTodoItem);
+  const Remaining = useSelector(selectRemainingTodoItem);
 
   return (
     <div className="flex flex-col w-[20%] text-center">
@@ -43,8 +42,8 @@ export const RemainingTodo = () => {
 };
 
 export const FilterByStatus = ({
-  SetFilterStatus,
-  filterStatus,
+  setFilterTodoStatus,
+  filterTodoStatus,
   setFilterColors,
   filterColors,
 }) => {
@@ -53,37 +52,39 @@ export const FilterByStatus = ({
       <h1>FilterByStatus</h1>
       <h1
         onClick={() =>
-          SetFilterStatus({
+          setFilterTodoStatus({
             all: true,
             Active: false,
             Completed: false,
           })
         }
-        className={`${filterStatus.all ? "bg-blue-700" : ""} rounded-sm`}
+        className={`${filterTodoStatus.all ? "bg-blue-700" : ""} rounded-sm`}
       >
         All
       </h1>
       <h1
         onClick={() =>
-          SetFilterStatus({
+          setFilterTodoStatus({
             all: false,
             Active: true,
             Completed: false,
           })
         }
-        className={`${filterStatus.Active ? "bg-blue-700" : ""} rounded-sm`}
+        className={`${filterTodoStatus.Active ? "bg-blue-700" : ""} rounded-sm`}
       >
         Active
       </h1>
       <h1
         onClick={() =>
-          SetFilterStatus({
+          setFilterTodoStatus({
             all: false,
             Active: false,
             Completed: true,
           })
         }
-        className={`${filterStatus.Completed ? "bg-blue-700" : ""} rounded-sm`}
+        className={`${
+          filterTodoStatus.Completed ? "bg-blue-700" : ""
+        } rounded-sm`}
       >
         Completed
       </h1>
@@ -91,7 +92,8 @@ export const FilterByStatus = ({
   );
 };
 
-export const AllColorFilter = ({ AllColor, filterColors, setFilterColors }) => {
+export const All_color_filter = ({  filterTodoStatus, setFilterColors }) => {
+  const AllColor=useSelector(selectAllTodoColor)
   const addColor = (colorName, status) => {
     setFilterColors((prevColors) => {
       if (!Array.isArray(prevColors)) {
