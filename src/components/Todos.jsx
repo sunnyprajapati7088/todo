@@ -16,7 +16,8 @@ import {
   RemainingTodo,
 } from "./FilterComponets";
 
-function Todos({ listColor }) {
+function Todos() {
+   const listColor = ["", "red", "green", "pink", "blue"];
   const AllTodo = useSelector((state) => state.Todos.todo);
   const AllColor = useSelector(AllTodoColor);
   const [filterStatus, SetFilterStatus] = useState({
@@ -24,15 +25,15 @@ function Todos({ listColor }) {
     Active: false,
     Completed: false,
   });
-  const [color, Setcolor] = useState([]);
+  const [filterColors, setFilterColors] = useState([]);
 
-  console.log(useSelector(filterTodo({ filterStatus, color })));
+  console.log(useSelector(filterTodo({ filterStatus, filterColors })));
   const dispatch = useDispatch();
   function handleDelete(id) {
     dispatch(TodoDelete(id));
   }
 
-  function handleStatus(id, isChecked) {
+  function handleColorStatus(id, isChecked) {
     console.log(id, isChecked);
     dispatch(TodoChangeStatus({ id, isChecked }));
   }
@@ -45,7 +46,7 @@ function Todos({ listColor }) {
     return AllTodo.filter((element) => element.color === color.colorName);
   }
 
-  const filterData = useSelector(filterTodo({ filterStatus, color }));
+  const filterData = useSelector(filterTodo({ filterStatus, filterColors }));
   return (
     <div className="flex flex-col h-full gap-2 p-3">
       {filterData.map((item, i) => (
@@ -54,7 +55,7 @@ function Todos({ listColor }) {
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                onChange={(e) => handleStatus(item.id, e.target.checked)}
+                onChange={(e) => handleColorStatus(item.id, e.target.checked)}
                 checked={item.status}
                 className="w-6 h-6 rounded-md"
               />
@@ -82,12 +83,12 @@ function Todos({ listColor }) {
         <FilterByStatus
           SetFilterStatus={SetFilterStatus}
           filterStatus={filterStatus}
-          Setcolor={Setcolor}
-          color={color}
+          setFilterColors={setFilterColors}
+          filterColors={filterColors}
         />
         <AllColorFilter
-          Setcolor={Setcolor}
-          color={color}
+          setFilterColors={setFilterColors}
+          filterColors={filterColors}
           AllColor={AllColor}
           handleColorFilter={handleColorFilter}
           SetFilterStatus={SetFilterStatus}

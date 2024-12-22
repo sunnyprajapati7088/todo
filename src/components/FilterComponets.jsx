@@ -42,20 +42,22 @@ export const RemainingTodo = () => {
   );
 };
 
-export const FilterByStatus = ({ SetFilterStatus, filterStatus, Setcolor,color }) => {
+export const FilterByStatus = ({
+  SetFilterStatus,
+  filterStatus,
+  setFilterColors,
+  filterColors,
+}) => {
   return (
     <div className="flex flex-col w-[20%] text-center">
       <h1>FilterByStatus</h1>
       <h1
         onClick={() =>
-          SetFilterStatus(
-            {
-              all: true,
-              Active: false,
-              Completed: false,
-            },
-            Setcolor(!color)
-          )
+          SetFilterStatus({
+            all: true,
+            Active: false,
+            Completed: false,
+          })
         }
         className={`${filterStatus.all ? "bg-blue-700" : ""} rounded-sm`}
       >
@@ -89,25 +91,22 @@ export const FilterByStatus = ({ SetFilterStatus, filterStatus, Setcolor,color }
   );
 };
 
-export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
+export const AllColorFilter = ({ AllColor, filterColors, setFilterColors }) => {
   const addColor = (colorName, status) => {
-     
-    Setcolor((prevColors) => {
-   
-       if (!Array.isArray(prevColors)) {
-         console.error("prevColors is not an array:", prevColors);
-         return []; 
-       }
+    setFilterColors((prevColors) => {
+      if (!Array.isArray(prevColors)) {
+        console.error("prevColors is not an array:", prevColors);
+        return [];
+      }
       const existingIndex = prevColors.findIndex(
         (item) => item.colorName === colorName
       );
       if (existingIndex >= 0) {
-      
         const updatedColors = [...prevColors];
         updatedColors[existingIndex].status = status;
         return updatedColors;
       }
-      
+
       return [...prevColors, { colorName, status }];
     });
   };
@@ -121,7 +120,6 @@ export const AllColorFilter = ({ AllColor, color, Setcolor }) => {
             type="checkbox"
             value={ColorItem}
             onChange={(e) => addColor(ColorItem, e.target.checked)}
-           
           />
           <div
             style={{ background: ColorItem, width: "10px", height: "10px" }}

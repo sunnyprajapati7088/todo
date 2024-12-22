@@ -81,8 +81,8 @@ export const AllTodoColor = (state) => {
 };
 
 export const filterTodo = (argu) => (state) => {
-  const { filterStatus, color } = argu;
-  console.log("Selected Colors:", color);
+  const { filterStatus, filterColors } = argu;
+  console.log("Selected Colors:", filterColors);
 
   const filteredItems = state.Todos.todo.filter((item) => {
     
@@ -92,8 +92,8 @@ export const filterTodo = (argu) => (state) => {
       (filterStatus.Completed && item.status);
 
    
-   const selectedColors = Array.isArray(color)
-     ? color.filter((c) => c.status).map((c) => c.colorName)
+   const selectedColors = Array.isArray(filterColors)
+     ? filterColors.filter((c) => c.status).map((c) => c.colorName)
      : [];
 
 console.log(selectedColors)
