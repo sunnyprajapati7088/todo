@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Actions, All_color_filter, FilterByStatus, RemainingTodo } from "../components/FilterComponets";
+import { Actions, AllColorFilter, FilterByStatus, RemainingTodo } from "../components/FilterComponets";
 
 function FooterSection({
   setFilterTodoStatus,
@@ -17,7 +17,7 @@ function FooterSection({
         setFilterColors={setFilterColors}
         filterColors={filterColors}
       />
-      <All_color_filter
+      <AllColorFilter
         setFilterColors={setFilterColors}
         filterColors={filterColors}
         setFilterTodoStatus={setFilterTodoStatus}

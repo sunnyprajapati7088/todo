@@ -3,54 +3,55 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectAllTodoColor,
   selectRemainingTodoItem,
-  TodoClear,
-  TodoMarksAllComplete, 
-  TodoUnMarkAll,
+  todoClear,
+  todoMarksAllComplete,
+  todoUnMarkAll,
 } from "../Redux/TodoSlice";
 
 export const Actions = () => {
   const dispatch = useDispatch();
   function handleAllComplete() {
-    dispatch(TodoMarksAllComplete());
+    dispatch(todoMarksAllComplete());
   }
   function handleClear() {
-    dispatch(TodoClear());
+    dispatch(todoClear());
   }
   function handleAllUnmarks() {
-    dispatch(TodoUnMarkAll());
-    
+    dispatch(todoUnMarkAll());
   }
   return (
     <div className="flex flex-col w-[20%] text-center ">
       <p>Actions</p>
-      <button onClick={() => handleAllComplete()}>All Marks Complete</button>
-      <button onClick={() => handleClear()}>Clear All Complete</button>
-      <button onClick={() => handleAllUnmarks()}> AllUnMark </button>
+      <button className="border" onClick={() => handleAllComplete()}>
+        All Marks Complete
+      </button>
+      <button className="border" onClick={() => handleClear()}>
+        Clear All Complete
+      </button>
+      <button className="border" onClick={() => handleAllUnmarks()}>
+        {" "}
+        AllUnMark{" "}
+      </button>
     </div>
   );
 };
 
 export const RemainingTodo = () => {
-  const Remaining = useSelector(selectRemainingTodoItem);
+  const remaining = useSelector(selectRemainingTodoItem);
 
   return (
     <div className="flex flex-col w-[20%] text-center">
       <h1>Remaining Todos</h1>
-      <p>{Remaining} item left</p>
+      <p>{remaining} item left</p>
     </div>
   );
 };
 
-export const FilterByStatus = ({
-  setFilterTodoStatus,
-  filterTodoStatus,
-  setFilterColors,
-  filterColors,
-}) => {
+export const FilterByStatus = ({ setFilterTodoStatus, filterTodoStatus }) => {
   return (
     <div className="flex flex-col w-[20%] text-center">
       <h1>FilterByStatus</h1>
-      <h1
+      <button
         onClick={() =>
           setFilterTodoStatus({
             all: true,
@@ -61,8 +62,8 @@ export const FilterByStatus = ({
         className={`${filterTodoStatus.all ? "bg-blue-700" : ""} rounded-sm`}
       >
         All
-      </h1>
-      <h1
+      </button>
+      <button
         onClick={() =>
           setFilterTodoStatus({
             all: false,
@@ -73,8 +74,8 @@ export const FilterByStatus = ({
         className={`${filterTodoStatus.Active ? "bg-blue-700" : ""} rounded-sm`}
       >
         Active
-      </h1>
-      <h1
+      </button>
+      <button
         onClick={() =>
           setFilterTodoStatus({
             all: false,
@@ -87,19 +88,15 @@ export const FilterByStatus = ({
         } rounded-sm`}
       >
         Completed
-      </h1>
+      </button>
     </div>
   );
 };
 
-export const All_color_filter = ({  filterTodoStatus, setFilterColors }) => {
-  const AllColor=useSelector(selectAllTodoColor)
+export const AllColorFilter = ({ filterTodoStatus, setFilterColors }) => {
+  const allColor = useSelector(selectAllTodoColor);
   const addColor = (colorName, status) => {
     setFilterColors((prevColors) => {
-      if (!Array.isArray(prevColors)) {
-        console.error("prevColors is not an array:", prevColors);
-        return [];
-      }
       const existingIndex = prevColors.findIndex(
         (item) => item.colorName === colorName
       );
@@ -108,7 +105,6 @@ export const All_color_filter = ({  filterTodoStatus, setFilterColors }) => {
         updatedColors[existingIndex].status = status;
         return updatedColors;
       }
-
       return [...prevColors, { colorName, status }];
     });
   };
@@ -116,7 +112,7 @@ export const All_color_filter = ({  filterTodoStatus, setFilterColors }) => {
   return (
     <div className="flex flex-col justify-around">
       <h1>Filter By Color</h1>
-      {AllColor.map((ColorItem, i) => (
+      {allColor.map((ColorItem, i) => (
         <div key={i} className="w-[100px] flex gap-2 items-center">
           <input
             type="checkbox"

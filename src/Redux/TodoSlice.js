@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FilterByStatus } from './../components/FilterComponets';
+import { FilterByStatus } from "./../components/FilterComponets";
 const uid = function () {
   return Date.now().toString(5) + Math.random().toString(36).substr(2);
 };
 const TodoSlice = createSlice({
-  name: "Todos",
+  name: "todos",
   initialState: {
     todo: [],
   },
@@ -20,59 +20,56 @@ const TodoSlice = createSlice({
 
       state.todo.push(addData);
     },
-    TodoDelete: (state, action) => {
+    todoDelete: (state, action) => {
       state.todo = state.todo.filter((item) => item.id !== action.payload);
     },
-    TodoChangeStatus: (state, action) => {
+    todoChangeStatus: (state, action) => {
       const { id, isChecked } = action.payload;
       const item = state.todo.find((item) => item.id === id);
       item.status = isChecked;
 
-      //   state.todo.push({...ToChange,status:!isChecked})
+   
     },
-    TodoAddColor: (state, action) => {
+    todoAddColor: (state, action) => {
       const { id, color } = action.payload;
       const item = state.todo.find((item) => item.id === id);
       item.color = color;
     },
-    TodoMarksAllComplete: (state, action) => {
+    todoMarksAllComplete: (state, action) => {
       state.todo.forEach((item) => (item.status = true));
     },
-    TodoClear: (state, action) => {
-    state.todo=  state.todo.filter((item) => (item.status === false));
+    todoClear: (state, action) => {
+      state.todo = state.todo.filter((item) => item.status === false);
     },
-    TodoUnMarkAll: (state, action) => {
-        state.todo.forEach((item) => (item.status = false));
-     
+    todoUnMarkAll: (state, action) => {
+      state.todo.forEach((item) => (item.status = false));
     },
   },
 });
 export const {
   add,
-  TodoDelete,
-  TodoChangeStatus,
-  TodoAddColor,
-  TodoMarksAllComplete,
-  TodoClear,
-  TodoRemaining,
-  TodoUnMarkAll,
+  todoDelete,
+  todoChangeStatus,
+  todoAddColor,
+  todoMarksAllComplete,
+  todoClear,
+  todoUnMarkAll,
 } = TodoSlice.actions;
 export default TodoSlice.reducer;
 
 export const selectRemainingTodoItem = (state) => {
-  let Remaining = 0;
-  state.Todos.todo.forEach(item => {
+  let remaining = 0;
+  state.todos.todo.forEach((item) => {
     if (!item.status) {
-      Remaining++;
+      remaining++;
     }
-  })
-  return Remaining;
-  
-}
+  });
+  return remaining;
+};
 
 export const selectAllTodoColor = (state) => {
   let allColor = [];
-  state.Todos.todo.forEach((todo) => {
+  state.todos.todo.forEach((todo) => {
     if (!allColor.includes(todo.color)) {
       allColor.push(todo.color);
     }
@@ -82,20 +79,15 @@ export const selectAllTodoColor = (state) => {
 
 export const selectfilterTodo = (argu) => (state) => {
   const { filterTodoStatus, filterColors } = argu;
-  console.log("Selected Colors:", filterColors);
-
-  const filteredItems = state.Todos.todo.filter((item) => {
-    
+  const filteredItems = state.todos.todo.filter((item) => {
     const statusMatch =
       filterTodoStatus.all ||
       (filterTodoStatus.Active && !item.status) ||
       (filterTodoStatus.Completed && item.status);
 
-   
-   const selectedColors = Array.isArray(filterColors)
-     ? filterColors.filter((c) => c.status).map((c) => c.colorName)
-     : [];
-
+    const selectedColors = Array.isArray(filterColors)
+      ? filterColors.filter((c) => c.status).map((c) => c.colorName)
+      : [];
 
     const colorMatch = selectedColors.length
       ? selectedColors.includes(item.color)
@@ -107,8 +99,6 @@ export const selectfilterTodo = (argu) => (state) => {
   return filteredItems;
 };
 
-
 export const selectAllTodo = (state) => {
-  return state.Todos.todo;
-  
-}
+  return state.todos.todo;
+};

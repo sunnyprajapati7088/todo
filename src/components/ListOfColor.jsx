@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { TodoAddColor } from "../Redux/TodoSlice";
-import { useDispatch } from 'react-redux';
+import { todoAddColor } from "../Redux/TodoSlice";
+import { useDispatch } from "react-redux";
 
 function ListOfColor({ id, color }) {
-   const SELLECTCOLOR = ["", "red", "green", "pink", "blue"];
+  const COLORS = ["", "red", "green", "pink", "blue"];
   const dispatch = useDispatch();
-   function handleColor(id, color) {
-     dispatch(TodoAddColor({ id, color }));
-   }
-
-  console.log(color);
+  function handleColor(id, color) {
+    dispatch(todoAddColor({ id, color }));
+  }
   return (
     <div>
       <select
@@ -19,7 +17,7 @@ function ListOfColor({ id, color }) {
         }}
         value={color}
       >
-        {SELLECTCOLOR.map((item, i) => (
+        {COLORS.map((item, i) => (
           <option className={`text-${color}-500`} key={i}>
             {item}
           </option>

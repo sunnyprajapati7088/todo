@@ -1,37 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  
-  
-  selectAllTodoColor,
-  selectfilterTodo,
-  
-  TodoChangeStatus,
-  TodoDelete,
-} from "../Redux/TodoSlice";
-import { CheckInput } from "./Inputs";
-import ListOfColor from "./ListOfColor";
-import {
-  Actions,
-  All_color_filter,
-  
-  FilterByStatus,
-  RemainingTodo,
-} from "./FilterComponets";
+import { useSelector } from "react-redux";
+import { selectfilterTodo } from "../Redux/TodoSlice";
 import Todoview from "./Todoview";
 import FooterSection from "../Pages/FooterSection";
-
 function Todos() {
-
- 
   const [filterTodoStatus, setFilterTodoStatus] = useState({
     all: true,
     Active: false,
     Completed: false,
   });
   const [filterColors, setFilterColors] = useState([]);
-
-  const filterData = useSelector(selectfilterTodo({ filterTodoStatus, filterColors }));
+  const filterData = useSelector(
+    selectfilterTodo({ filterTodoStatus, filterColors })
+  );
   return (
     <div className="flex flex-col h-full gap-2 p-3">
       {filterData.length ? (
@@ -50,5 +31,4 @@ function Todos() {
     </div>
   );
 }
-
 export default Todos;

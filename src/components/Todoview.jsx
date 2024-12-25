@@ -1,23 +1,16 @@
 import React from "react";
 import ListOfColor from "./ListOfColor";
-import { TodoChangeStatus, TodoDelete } from "../Redux/TodoSlice";
+import { todoChangeStatus, todoDelete } from "../Redux/TodoSlice";
 import { useDispatch } from "react-redux";
-
-function Todoview({
- 
-  item,
-  
-}) {
- 
+function Todoview({ item }) {
   const dispatch = useDispatch();
- function handleTodoStatus(id, isChecked) {
-   console.log(id, isChecked);
-   dispatch(TodoChangeStatus({ id, isChecked }));
+  function handleTodoStatus(id, isChecked) {
+    console.log(id, isChecked);
+    dispatch(todoChangeStatus({ id, isChecked }));
   }
-   function handleDelete(id) {
-     dispatch(TodoDelete(id));
+  function handleDelete(id) {
+    dispatch(todoDelete(id));
   }
-  
   return (
     <div className="flex w-[100%] justify-between items-center  h-10">
       <div className="flex gap-2">
@@ -31,12 +24,7 @@ function Todoview({
       </div>
       <div className="flex gap-4">
         {" "}
-        <ListOfColor
-         
-          id={item.id}
-          color={item.color}
-       
-        />
+        <ListOfColor id={item.id} color={item.color} />
         <button onClick={() => handleDelete(item.id)}>X</button>
       </div>
     </div>
