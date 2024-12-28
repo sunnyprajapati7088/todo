@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FilterByStatus } from "./../components/FilterComponets";
 const uid = function () {
   return Date.now().toString(5) + Math.random().toString(36).substr(2);
 };
@@ -27,8 +26,6 @@ const TodoSlice = createSlice({
       const { id, isChecked } = action.payload;
       const item = state.todo.find((item) => item.id === id);
       item.status = isChecked;
-
-   
     },
     todoAddColor: (state, action) => {
       const { id, color } = action.payload;
@@ -77,8 +74,8 @@ export const selectAllTodoColor = (state) => {
   return allColor;
 };
 
-export const selectfilterTodo = (argu) => (state) => {
-  const { filterTodoStatus, filterColors } = argu;
+export const selectfilterTodo = (filters) => (state) => {
+  const { filterTodoStatus, filterColors } = filters;
   const filteredItems = state.todos.todo.filter((item) => {
     const statusMatch =
       filterTodoStatus.all ||
